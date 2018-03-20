@@ -1,12 +1,18 @@
 class BinarySearchTree
 
-  def insert
+  attr_reader :root_node
+
+  def initialize(score, title)
+    @root_node = [score, title]
   end
 
-  def include?
+  def insert(score, title)
   end
 
-  def depth_of
+  def include?(score)
+  end
+
+  def depth_of(score)
   end
 
   def max
@@ -18,6 +24,19 @@ class BinarySearchTree
   def sort
   end
 
-  
+  def load(movies)
+  end
+
+  def health(depth)
+  end
+
+  def leaves
+  end
+
+  def height
+  end
+
+  def delete(score)
+  end
 
 end

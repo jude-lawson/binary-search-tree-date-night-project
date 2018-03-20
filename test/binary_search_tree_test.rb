@@ -27,22 +27,22 @@ class BinarySearchTreeTest < MiniTest::Test
   end
 
   def test_finding_depth_of_given_score
-    assert_equal 1, tree.depth_of(92)
+    assert_equal 1, @tree.depth_of(92)
   end
 
   # most return values that return title return a hash like this {"Sharknado 3"=>92}
 
   def test_finding_movie_with_highest_score
-    assert_equal {"Sharknado 3" => 92}, @tree.max
+    assert_equal ({"Sharknado 3" => 92}), @tree.max
   end
 
   def test_finding_movie_with_lowest_score
-    assert_equal {"Armageddon" => 58}, @tree.min
+    assert_equal ({"Armageddon" => 58}), @tree.min
   end
 
   # Lowest score to highest score
   def test_sorting_nodes_into__array_by_ascending_score_value
-    assert_equal [{"Armageddon" => 58},{"Star Trek" => 85},{"Sharknado 3" => 92}], @tree.sort
+    assert_equal [({"Armageddon" => 58}),({"Star Trek" => 85}),({"Sharknado 3" => 92})], @tree.sort
   end
 
   def test_loading_csv_file_into_tree
@@ -56,16 +56,32 @@ class BinarySearchTreeTest < MiniTest::Test
   end
 
   def test_retrieving_node_health_data
-    
+    @tree.insert(95, "Star Trek")
+    assert_equal [[85, 1, 25], [95, 1, 25]],@tree.health(2)
   end
 
   def test_counting_tree_leaves
+    @tree.insert(95, "Star Trek")
+    assert_equal 2, @tree.leaves
   end
 
   def test_getting_maximum_height_of_tree
+    assert_equal 2, @tree.height
   end
 
   def test_deleting_nodes_from_tree
+    @tree.insert(95, "Star Trek")
+    @tree.delete(92)
+    # Test with array in left to right order , (we could also then get all tree children by then adding top to bottom order)
+    assert_equal 58, @tree.root_node
+    assert_equal [95], @tree.root_node.children
+  end
+
+  def test_deleting_root_node_from_tree
+    @tree.insert(95, "Star Trek")
+    @tree.delete(58)
+    assert_equal 92, @tree.root_node
+    assert_equal [85, 95], @tree.root_node.children
   end
 
 
