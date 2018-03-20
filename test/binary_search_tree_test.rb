@@ -46,13 +46,17 @@ class BinarySearchTreeTest < MiniTest::Test
   end
 
   def test_loading_csv_file_into_tree
-    
+    tree = BinarySearchTree.new(99, "Lord Of The Rings: The Fellowship Of The Ring")
+    assert_equal 5, tree.load("./data/movies.txt")
   end
 
   def test_score_is_ignored_when_already_present_in_tree
+    tree = BinarySearchTree.new(92, "Star Wars: Return Of The Jedi")
+    assert_equal 4, tree.load("./data/movies.txt")
   end
 
   def test_retrieving_node_health_data
+    
   end
 
   def test_counting_tree_leaves
