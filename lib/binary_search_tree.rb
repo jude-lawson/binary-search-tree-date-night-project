@@ -17,19 +17,23 @@ class BinarySearchTree
     else
       leaf_to_add_to.right_child = new_node
     end
-    p leaf_to_add_to
+    leaf_to_add_to
   end
 
   # Use node that is returned as argument in other methods
-  def traverse_to_leaf(node, score)
-    if node.is_leaf?
-      # This is the node reference that will be used for other methods
-      return node
-    elsif node.score < score
-      traverse_to_leaf(node.left, score)
-    elsif node.score > score
-      traverse_to_leaf(node.right, score)
+  def traverse_to_leaf(current_node, score)
+    if current_node.is_leaf?
+      # This is the current_node reference that will be used for other methods
+      current_node
+    elsif current_node.score < score && current_node.left_child != nil
+      traverse_to_leaf(current_node.left_child, score)
+    elsif current_node.score > score && current_node.right_child != nil
+      traverse_to_leaf(current_node.right_child, score)
     end
+    current_node
+  end
+
+  def traverse_to_value
   end
 
 
@@ -77,7 +81,3 @@ class BinarySearchTree
   end
 
 end
-
-b = BinarySearchTree.new(58, "Indiana Jones")
-b.insert(99, "Star Trek")
-# p b.traverse_to_leaf(b.root_node, 75)
