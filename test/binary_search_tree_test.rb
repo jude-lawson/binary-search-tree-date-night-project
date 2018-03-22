@@ -42,7 +42,6 @@ class BinarySearchTreeTest < MiniTest::Test
   end
 
   def test_finding_depth_of_given_score
-    skip
     assert_equal 1, @tree.depth_of(92)
   end
 
@@ -53,12 +52,10 @@ class BinarySearchTreeTest < MiniTest::Test
   # most return values that return title return a hash like this {"Sharknado 3"=>92}
 
   def test_finding_movie_with_highest_score
-    skip
     assert_equal ({"Sharknado 3" => 92}), @tree.max
   end
 
   def test_finding_movie_with_lowest_score
-    skip
     assert_equal ({"Armageddon" => 58}), @tree.min
   end
 

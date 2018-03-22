@@ -70,9 +70,13 @@ class BinarySearchTree
   end
 
   def max
+    nodes = sort(@root_node)
+    nodes[-1]
   end
 
   def min
+    nodes = sort(@root_node)
+    nodes[0]
   end
 
   def get_sorted_nodes(current_node)
