@@ -17,13 +17,11 @@ class BinarySearchTreeTest < MiniTest::Test
   end
 
   def test_tree_has_root_node_reference
-    # binding.pry
     assert_equal ({"Armageddon"=>58}), @tree.root_node.reference
     assert_instance_of Node, @tree.root_node
   end
 
   def test_inserting_new_nodes_into_tree
-    #Double-check expected values
     assert_equal 3, @tree.insert(80, "Star Wars: The Force Awakens")
     # assert_equal 2, @tree.insert(93, "Star Trek: Into Darkness")
     # ^ This assert throws a really weird error unless new_node.depth in insert
@@ -36,8 +34,11 @@ class BinarySearchTreeTest < MiniTest::Test
   end
 
   def test_finding_included_nodes_by_score_value
-    skip
     assert @tree.include?(92)
+  end
+
+  def test_finding_not_included_node_by_score_value
+    refute @tree.include?(101)
   end
 
   def test_finding_depth_of_given_score

@@ -45,7 +45,24 @@ class BinarySearchTree
     end
   end
 
+  def traverse_to_value(current_node, score)
+    if score == current_node.score
+      current_node.score
+    elsif score > current_node.score && current_node.right_child
+      traverse_to_value(current_node.right_child, score)
+    elsif score < current_node.score && current_node.left_child
+      traverse_to_value(current_node.left_child, score)
+    else
+      false
+    end
+  end
+
   def include?(score)
+    if traverse_to_value(@root_node, score) == score
+      true
+    else
+      false
+    end
   end
 
   def depth_of(score)
@@ -59,12 +76,6 @@ class BinarySearchTree
   end
 
   def get_sorted_nodes(current_node)
-    # if current_node == nil
-    #   []
-    # else
-    #   [sort(current_node.left_child)] + [current_node] + [sort(current_node.right_child)]
-    # end
-
     if current_node == nil
       []
     else
@@ -87,7 +98,6 @@ class BinarySearchTree
   end
 
   def leaves
-
   end
 
   def height
