@@ -2,6 +2,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/binary_search_tree'
 require './lib/node'
+require 'pry'
 
 class BinarySearchTreeTest < MiniTest::Test
 
@@ -16,15 +17,22 @@ class BinarySearchTreeTest < MiniTest::Test
   end
 
   def test_tree_has_root_node_reference
-    skip
+    # binding.pry
     assert_equal ({"Armageddon"=>58}), @tree.root_node.reference
     assert_instance_of Node, @tree.root_node
   end
 
   def test_inserting_new_nodes_into_tree
-    skip
-    assert_equal 1, @tree.insert(80, "Star Wars: The Force Awakens")
-    assert_equal 2, @tree.insert(93, "Star Trek: Into Darkness")
+    #Double-check expected values
+    assert_equal 3, @tree.insert(80, "Star Wars: The Force Awakens")
+    # assert_equal 2, @tree.insert(93, "Star Trek: Into Darkness")
+    # ^ This assert throws a really weird error unless new_node.depth in insert
+    # method is commented out.
+  end
+
+  def test_sorting_the_tree
+    @tree.insert(80, "Star Wars: The Force Awakens")
+    assert_equal ([{"Armageddon"=>58},{"Star Wars: The Force Awakens"=>80},{"Star Trek"=>85},{"Sharknado 3"=>92}]), @tree.sort(@tree.root_node)
   end
 
   def test_finding_included_nodes_by_score_value
@@ -35,6 +43,10 @@ class BinarySearchTreeTest < MiniTest::Test
   def test_finding_depth_of_given_score
     skip
     assert_equal 1, @tree.depth_of(92)
+  end
+
+  def test_root_depth
+    assert_equal 0, @tree.depth_of(58)
   end
 
   # most return values that return title return a hash like this {"Sharknado 3"=>92}

@@ -11,40 +11,45 @@ class BinarySearchTree
 
   def insert(score, title)
     new_node = Node.new(score, title)
-    leaf_to_add_to = self.traverse_to_leaf(@root_node, score)
-    if leaf_to_add_to.score > new_node.score
-      leaf_to_add_to.left_child = new_node
-    else
-      leaf_to_add_to.right_child = new_node
-    end
-    leaf_to_add_to
+    traverse_to_add(@root_node, new_node)
+    new_node.depth
   end
 
-  # Use node that is returned as argument in other methods
-  def traverse_to_leaf(current_node, score)
-    if current_node.is_leaf?
-      # This is the current_node reference that will be used for other methods
+  def traverse_to_add(current_node, new_node)
+    if new_node.score == current_node.score
+      return
+    elsif new_node.score > current_node.score
+      if current_node.right_child || current_node.left_child
+        traverse_to_add(current_node.right_child, new_node)
+      else
+        new_node.depth = current_node.depth + 1
+        current_node.right_child = new_node
+      end
+    elsif new_node.score < current_node.score
+      if current_node.left_child || current_node.right_child
+        traverse_to_add(current_node.left_child, new_node)
+      else
+        new_node.depth = current_node.depth + 1
+        current_node.left_child = new_node
+      end
+    end
+  end
+
+  def traverse_for_depth(current_node, score)
+    if score == current_node.score
       current_node
-    elsif current_node.score < score && current_node.left_child != nil
-      traverse_to_leaf(current_node.left_child, score)
-    elsif current_node.score > score && current_node.right_child != nil
-      traverse_to_leaf(current_node.right_child, score)
+    elsif score > current_node.score
+      traverse_for_depth(current_node.right_child, score)
+    elsif score < current_node.score
+      traverse_for_depth(current_node.left_child, score)
     end
-    current_node
-  end
-
-  def traverse_to_value
-  end
-
-
   end
 
   def include?(score)
   end
 
-  def search(node)
-
   def depth_of(score)
+    traverse_for_depth(@root_node, score).depth
   end
 
   def max
@@ -53,7 +58,26 @@ class BinarySearchTree
   def min
   end
 
-  def sort
+  def get_sorted_nodes(current_node)
+    # if current_node == nil
+    #   []
+    # else
+    #   [sort(current_node.left_child)] + [current_node] + [sort(current_node.right_child)]
+    # end
+
+    if current_node == nil
+      []
+    else
+      [get_sorted_nodes(current_node.left_child)] + [current_node] + [get_sorted_nodes(current_node.right_child)]
+    end
+  
+  end
+
+  def sort(current_node)
+    flattened_array = get_sorted_nodes(current_node).flatten
+    items = flattened_array.map do |item|
+      item.reference
+    end
   end
 
   def load(movies)
@@ -61,14 +85,6 @@ class BinarySearchTree
 
   def health(depth)
   end
-
-  # def is_leaf?(node)
-  #   if node.left_child || node.right_child
-  #     false
-  #   else
-  #     true
-  #   end
-  # end
 
   def leaves
 

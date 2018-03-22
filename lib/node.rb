@@ -4,7 +4,8 @@ class Node
               :score
 
   attr_accessor :left_child,
-                :right_child
+                :right_child,
+                :depth
 
   def initialize(score, title)
     @reference = {title=>score}
@@ -12,7 +13,7 @@ class Node
     @title = title
     @left_child = nil
     @right_child = nil
-    @parent_relationship = {}
+    @depth = 0
   end
 
   def is_leaf?
