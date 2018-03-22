@@ -16,17 +16,20 @@ class BinarySearchTree
   end
 
   def traverse_to_add(current_node, new_node)
+    # binding.pry
     if new_node.score == current_node.score
       return
     elsif new_node.score > current_node.score
-      if current_node.right_child || current_node.left_child
+      # if current_node.right_child || current_node.left_child
+      if current_node.right_child
         traverse_to_add(current_node.right_child, new_node)
       else
         new_node.depth = current_node.depth + 1
         current_node.right_child = new_node
       end
     elsif new_node.score < current_node.score
-      if current_node.left_child || current_node.right_child
+      # if current_node.left_child || current_node.right_child
+      if current_node.left_child
         traverse_to_add(current_node.left_child, new_node)
       else
         new_node.depth = current_node.depth + 1
@@ -96,6 +99,15 @@ class BinarySearchTree
   end
 
   def load(movies)
+    data = File.read("./data/movies.txt")
+    items = data.split("\n")
+    entries = items.map do |item|
+      item.split(",")
+    end
+    entries.each do |entry|
+      self.insert(entry[0].to_i, entry[1])
+    end
+    entries.length
   end
 
   def health(depth)

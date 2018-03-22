@@ -23,7 +23,7 @@ class BinarySearchTreeTest < MiniTest::Test
 
   def test_inserting_new_nodes_into_tree
     assert_equal 3, @tree.insert(80, "Star Wars: The Force Awakens")
-    # assert_equal 2, @tree.insert(93, "Star Trek: Into Darkness")
+    assert_equal 2, @tree.insert(93, "Star Trek: Into Darkness")
     # ^ This assert throws a really weird error unless new_node.depth in insert
     # method is commented out.
   end
@@ -59,14 +59,12 @@ class BinarySearchTreeTest < MiniTest::Test
     assert_equal ({"Armageddon" => 58}), @tree.min
   end
 
-  # Lowest score to highest score
-  def test_sorting_nodes_into__array_by_ascending_score_value
-    skip
-    assert_equal [({"Armageddon" => 58}),({"Star Trek" => 85}),({"Sharknado 3" => 92})], @tree.sort
+  # Lowest score to highest score # Test is duplicated from above
+  def test_sorting_nodes_into_array_by_ascending_score_value
+    assert_equal [({"Armageddon" => 58}),({"Star Trek" => 85}),({"Sharknado 3" => 92})], @tree.sort(@tree.root_node)
   end
 
   def test_loading_csv_file_into_tree
-    skip
     tree = BinarySearchTree.new(99, "Lord Of The Rings: The Fellowship Of The Ring")
     assert_equal 5, tree.load("./data/movies.txt")
   end
